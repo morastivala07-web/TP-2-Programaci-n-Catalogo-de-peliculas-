@@ -1,0 +1,12 @@
+[
+    {"id_valoracion": "1", "id_pelicula": "1", "puntuacion": "4"},
+    {"id_valoracion": "2", "id_pelicula": "1", "puntuacion": "5"},
+    {"id_valoracion": "3", "id_pelicula": "2", "puntuacion": "3"},
+    {"id_valoracion": "4", "id_pelicula": "2", "puntuacion": "4"},
+    {"id_valoracion": "5", "id_pelicula": "3", "puntuacion": "5"},
+    {"id_valoracion": "6", "id_pelicula": "3", "puntuacion": "4"},
+    {"id_valoracion": "7", "id_pelicula": "4", "puntuacion": "4.5"},
+    {"id_valoracion": "8", "id_pelicula": "4", "puntuacion": "5"},
+    {"id_valoracion": "9", "id_pelicula": "5", "puntuacion": "4"},
+    {"id_valoracion": "10", "id_pelicula": "5", "puntuacion": "4.5"}
+]

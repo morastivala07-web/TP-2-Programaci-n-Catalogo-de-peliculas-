@@ -1,6 +1,12 @@
 from pathlib import Path
 from fuentes import FuenteCSV
-from pipeline import buscar_titulos, filtrar_genero
+from pipeline import (
+    buscar_titulos,
+    filtrar_genero,
+    construir_catalogo,
+    acumular_valoraciones,
+    generar_lista
+)
 
 
 def mostrar_resultados(resultados):
@@ -20,12 +26,21 @@ def mostrar_resultados(resultados):
 
 def main():
     carpeta_data = Path(__file__).resolve().parent.parent / "data"
+    fuente = FuenteCSV()
 
     try:
-        peliculas = FuenteCSV().cargar(carpeta_data / "peliculas.csv")
-    except (OSError, UnicodeError, ValueError) as error:
-        print("No se pudo cargar el catálogo:", error)
+        peliculas = fuente.cargar(carpeta_data / "peliculas.csv")
+        valoraciones = fuente.cargar(carpeta_data / "valoraciones.csv")
+        catalogo = construir_catalogo(peliculas)
+        rechazos = acumular_valoraciones(catalogo, valoraciones)
+    except (OSError, UnicodeError, ValueError, KeyError) as error:
+        print("No se pudieron preparar los datos:", error)
         return
+
+    if rechazos:
+        print("Valoraciones rechazadas:", len(rechazos))
+        for rechazo in rechazos:
+            print("Fila", rechazo["fila"], "-", rechazo["motivo"])
 
     while True:
         print("\nCatálogo de películas")
@@ -59,7 +74,26 @@ def main():
             mostrar_resultados(resultados)
 
         elif opcion == "3":
-            print("La lista de valoraciones estará disponible próximamente.")
+            entrada = input("Cantidad mínima de opiniones: ").strip()
+
+            try:
+                minimo = int(entrada)
+                resultados = generar_lista(catalogo, minimo)
+            except ValueError:
+                print("Ingresá un número entero mayor que cero.")
+                continue
+
+            if not resultados:
+                print("No hay películas con ese mínimo de opiniones.")
+            else:
+                for pelicula in resultados:
+                    print(
+                        pelicula.titulo,
+                        "| Promedio:",
+                        format(pelicula.promedio(), ".2f"),
+                        "| Opiniones:",
+                        pelicula.cantidad_valoraciones()
+                    )
 
         elif opcion == "4":
             print("¡Hasta luego!")
@@ -71,3 +105,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

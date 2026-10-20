@@ -1,0 +1,7 @@
+[
+    {"id": "1", "titulo": "Toy Story (1995)", "generos": "Animación|Comedia"},
+    {"id": "2", "titulo": "Jumanji (1995)", "generos": "Aventura|Fantasía"},
+    {"id": "3", "titulo": "Titanic (1997)", "generos": "Drama|Romance"},
+    {"id": "4", "titulo": "Shrek (2001)", "generos": "Animación|Comedia"},
+    {"id": "5", "titulo": "Buscando a Nemo (2003)", "generos": "Animación|Aventura"}
+]
